@@ -3,7 +3,7 @@ const userController = {
     try {
         const {nome, idade, anoNascimento} = req.body;
 
-        return res.status(200).json({
+        return res.status(202).json({
             msg: `usuario criado com sucesso`
         })
     } catch (error) {
@@ -16,6 +16,9 @@ const userController = {
   listenUser: async (req, res) =>{
     try {
         
+        return res.status(200).json({
+            users: []
+        })
     } catch (error) {
         return res.status(500).json({
             msg: 'Ocorreu um erro ao listar os usuarios'

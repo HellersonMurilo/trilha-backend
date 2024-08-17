@@ -15,7 +15,7 @@ userRoutes.post("/", validateUser, (req, res) => {
 });
 
 userRoutes.get('/listUsers', (req, res)=>{
-    
+    userController.listenUser(req,res)
 })
 
 module.exports = userRoutes;
