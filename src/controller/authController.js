@@ -18,8 +18,8 @@ const authController = {
       const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
 
       return res.status(202).json({
-        msg: `Usuario ${nome} criado com sucesso!`,
-        nivelProfissional: `${nivelPerfil}`,
+        msg: "Usuario  criado com sucesso!",
+        nivelProfissional: "1",
       });
     } catch (error) {
       return res.status(500).json({

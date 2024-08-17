@@ -10,19 +10,19 @@ const validateUser = (req, res, next) => {
   }
 
   // IDADE
-  if (!idade || typeof idade !== 'number' ) {
+  if (!idade || typeof idade !== "number") {
     return res.status(400).json({
-        msg: "Tipo de dado inválido",
-        campo: "idade"
-    })
+      msg: "Tipo de dado inválido",
+      campo: "idade",
+    });
   }
 
   //ANO NASCIMENTO
-  if (anoNascimento || typeof anoNascimento !== 'string') {
+  if (anoNascimento || typeof anoNascimento !== "string") {
     return res.status(400).json({
-        msg:"Tipo de dado inválido",
-        campo: "Ano nascimento"
-    })
+      msg: "Tipo de dado inválido",
+      campo: "Ano nascimento",
+    });
   }
 
   return next();
@@ -37,11 +37,10 @@ const validateUserId = (req, res, next) => {
     });
   }
 
-  return next()
+  return next();
 };
 
-
 module.exports = {
-    validateUser,
-    validateUserId
-}
+  validateUser,
+  validateUserId,
+};
