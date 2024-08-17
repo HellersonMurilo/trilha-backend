@@ -9,8 +9,15 @@ const authSignIn = (req, res, next) => {
   }
 
   if (!password || typeof password !== 'string') {
-    
+    return res.status(400).json({
+        msg: "Tipo de dado inválido",
+        campo: "password"
+    })
   }
 
   return next()
 };
+
+module.exports ={
+    authSignIn
+}
