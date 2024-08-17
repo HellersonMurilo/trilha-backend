@@ -1,11 +1,7 @@
 const validateUser = (req, res, next) => {
   const { nome, idade, anoNascimento } = req.body;
-  if (!idade || !anoNascimento) {
-    return res.status(400).json({
-      msg: "campos faltando no usuario",
-    });
-  }
 
+  //NOME
   if (!nome || typeof nome !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
@@ -13,10 +9,19 @@ const validateUser = (req, res, next) => {
     });
   }
 
+  // IDADE
   if (!idade || typeof idade !== 'number' ) {
     return res.status(400).json({
         msg: "Tipo de dado inválido",
         campo: "idade"
+    })
+  }
+
+  //ANO NASCIMENTO
+  if (anoNascimento || typeof anoNascimento !== 'string') {
+    return res.status(400).json({
+        msg:"Tipo de dado inválido",
+        campo: "Ano nascimento"
     })
   }
 
