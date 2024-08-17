@@ -15,16 +15,16 @@ const authController = {
 
   signUp: async (req, res) => {
     try {
-        const {nome, sobrenome, email, senha, nivelPerfil} = req.body
+      const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
 
-        return res.status(202).json({
-            msg: `Usuario ${nome} criado com sucesso!`,
-            nivelProfissional: `${nivelPerfil}`
-        })
+      return res.status(202).json({
+        msg: `Usuario ${nome} criado com sucesso!`,
+        nivelProfissional: `${nivelPerfil}`,
+      });
     } catch (error) {
-        return res.status(500).json({
-            msg: 'Ocorreu um erro critico ao criar o usuario'
-        })
+      return res.status(500).json({
+        msg: "Ocorreu um erro critico ao criar o usuario",
+      });
     }
   },
 };
