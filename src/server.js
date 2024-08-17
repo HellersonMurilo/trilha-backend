@@ -1,15 +1,15 @@
 const express = require("express");
+const router = require("./routes/Routes");
 const app = express();
 
 require('dotenv').config();
 
-app.get("/", (req, res) => {
-    res.send('salve zé')
-});
+app.use(express.json())
 
-try {
-    app.listen(process.env.PORT)
-    console.log(`Servidor on, localhost:${process.env.PORT}`)
-} catch (error) {
-    console.error(`Error on upload Server, Description: ${error}` )
-}
+app.use('/api', router)
+
+const port = process.env.PORT | 7777;
+
+app.listen(port, () => {
+    console.log("estamos online")
+})
