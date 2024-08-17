@@ -13,6 +13,12 @@ const validateUser = (req, res, next) => {
     });
   }
 
+  if (!idade || typeof idade !== 'number' ) {
+    return res.status(400).json({
+        msg: "Tipo de dado inválido",
+        campo: "idade"
+    })
+  }
 
   return next();
 };

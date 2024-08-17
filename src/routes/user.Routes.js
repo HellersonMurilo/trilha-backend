@@ -14,7 +14,7 @@ userRoutes.post("/", validateUser, (req, res) => {
   userController.create(req, res)
 });
 
-userRoutes.get('/listUsers', (req, res)=>{
+userRoutes.get('/listusers', (req, res)=>{
     userController.listenUser(req,res)
 })
 
