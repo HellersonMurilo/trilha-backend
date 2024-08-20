@@ -1,16 +1,18 @@
-const usuarioModel = require('../models/user')
+const { User } = require("../models/user");
 
 const userController = {
   create: async (req, res) => {
     try {
-      const { nome, idade, anoNascimento } = req.body;
+      const { nome_u, sobrenome, email, senha, nivelPerfil } = req.body;
 
-      const criarUsuario = await usuarioModel.create(req.body)
+      const novoUsuario = await User.create(req.body);
 
       return res.status(202).json({
         msg: `usuario criado com sucesso`,
+        user: novoUsuario,
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         msg: "Ocorreu um erro ao criar um usuario",
       });

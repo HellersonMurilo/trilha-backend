@@ -1,27 +1,32 @@
 const validateUser = (req, res, next) => {
-  const { nome, idade, anoNascimento } = req.body;
+  const { nome_u, sobrenome, email, senha, nivelPerfil } = req.body;
 
   //NOME
-  if (!nome || typeof nome !== "string") {
+  if (!nome_u || typeof nome_u !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
       campo: "nome",
     });
   }
 
-  // IDADE
-  if (!idade || typeof idade !== "number") {
+  // sobrenome
+  if (!sobrenome || typeof sobrenome !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
-      campo: "idade",
+      campo: "sobrenome",
     });
   }
 
-  //ANO NASCIMENTO
-  if (anoNascimento || typeof anoNascimento !== "string") {
+  if (!email || typeof email !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
-      campo: "Ano nascimento",
+      campo: "email",
+    });
+  }
+  if (!senha || typeof senha !== "string") {
+    return res.status(400).json({
+      msg: "Tipo de dado inválido",
+      campo: "senha",
     });
   }
 

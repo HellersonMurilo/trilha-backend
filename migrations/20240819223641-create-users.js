@@ -22,15 +22,11 @@ module.exports = {
         allowNull: false,
       },
       nivelPerfil: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.TINYINT,
       },
       senha: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      usuarioAtivo: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
       },
       dataregis: {
         type: Sequelize.DATE,

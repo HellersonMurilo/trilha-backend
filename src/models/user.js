@@ -25,11 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       nivelPerfil: {
-        type: DataTypes.BOOLEAN,
-      },
-      usuarioAtivo: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        type: DataTypes.TINYINT,
       },
       dataregis: {
         type: DataTypes.DATE,

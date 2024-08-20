@@ -1,9 +1,9 @@
 // migrations/XXXXXXXXXXXXXX-create-learning-paths.js
-'use strict';
+"use strict";
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Learning_Paths', {
+    await queryInterface.createTable("Learning_Paths", {
       trilha_id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -25,6 +25,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Learning_Paths');
-  }
+    await queryInterface.dropTable("Learning_Paths");
+  },
 };
