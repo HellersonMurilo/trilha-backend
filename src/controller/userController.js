@@ -3,9 +3,9 @@ const { User } = require("../models/user");
 const userController = {
   create: async (req, res) => {
     try {
-      const { nome_u, sobrenome, email, senha, nivelPerfil } = req.body;
+      const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
 
-      const novoUsuario = await User.create(req.body);
+    const novoUsuario = await User.create(req.body)
 
       return res.status(202).json({
         msg: `usuario criado com sucesso`,

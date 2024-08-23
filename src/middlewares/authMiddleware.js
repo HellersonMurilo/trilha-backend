@@ -1,5 +1,5 @@
 const authSignIn = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, senha } = req.body;
 
   if (!email || typeof email !== "string") {
     return res.status(400).json({
@@ -8,7 +8,7 @@ const authSignIn = (req, res, next) => {
     });
   }
 
-  if (!password || typeof password !== "string") {
+  if (!senha || typeof senha !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
       campo: "password",

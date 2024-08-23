@@ -1,3 +1,5 @@
+const user = require("../models/user");
+
 const authController = {
   signIn: async (req, res) => {
     try {
@@ -17,13 +19,22 @@ const authController = {
     try {
       const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
 
+      const novoUsuario = await user.create({
+        nome,
+        sobrenome,
+        email,
+        senha,
+        nivelPerfil,
+      });
+
       return res.status(202).json({
         msg: "Usuario  criado com sucesso!",
-        nivelProfissional: "1",
+        usuario: novoUsuario,
       });
     } catch (error) {
       return res.status(500).json({
         msg: "Ocorreu um erro critico ao criar o usuario",
+        err: error,
       });
     }
   },
