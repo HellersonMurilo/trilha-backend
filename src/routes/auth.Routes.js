@@ -1,8 +1,6 @@
 const { Router } = require("express");
-const { authSignIn, authSignUp } = require("../middlewares/authMiddleware");
+const { authSignIn, authSignUp, hashPasswordMiddleware, validateLoginMiddleware } = require("../middlewares/authMiddleware");
 const authController = require("../controller/authController");
-const hashPasswordMiddleware = require("../middlewares/hashMiddleware");
-const validateLoginMiddleware = require("../middlewares/validateUserMiddleware");
 
 const authRoutes = Router();
 

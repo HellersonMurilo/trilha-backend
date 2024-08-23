@@ -45,6 +45,7 @@ const validateUserId = (req, res, next) => {
   return next();
 };
 
+
 module.exports = {
   validateUser,
   validateUserId,
