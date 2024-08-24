@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const user = require("../models/user");
 
-
 const authSignIn = (req, res, next) => {
   const { email, senha } = req.body;
 
@@ -63,6 +62,23 @@ const authSignUp = (req, res, next) => {
   return next();
 };
 
+//validando se o e-mail ja existe no banco de dados
+const validateEmailMiddleware = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const validarDuplicidade = await user.findOne({ where: { email } });
+
+    if (validarDuplicidade) {
+      return res.status(401).json({
+        msg: "E-mail ja existente!",
+      });
+    }
+
+    return next();
+  } catch (error) {}
+};
+
 const hashPasswordMiddleware = async (req, res, next) => {
   try {
     const { senha } = req.body;
@@ -117,5 +133,6 @@ module.exports = {
   authSignIn,
   authSignUp,
   hashPasswordMiddleware,
-  validateLoginMiddleware
+  validateLoginMiddleware,
+  validateEmailMiddleware,
 };
