@@ -5,7 +5,7 @@ const userController = {
     try {
       const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
 
-    const novoUsuario = await User.create(req.body)
+      const novoUsuario = await User.create(req.body);
 
       return res.status(202).json({
         msg: `usuario criado com sucesso`,
@@ -27,6 +27,15 @@ const userController = {
     } catch (error) {
       return res.status(500).json({
         msg: "Ocorreu um erro ao listar os usuarios",
+      });
+    }
+  },
+  createTrail: async (req, res) => {
+    try {
+      return res.json({ msg: "ta criada" });
+    } catch (error) {
+      return res.status(500).json({
+        msg: "Ocorreu um erro ao criar a trilha",
       });
     }
   },

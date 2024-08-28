@@ -22,7 +22,8 @@ module.exports = {
         allowNull: false,
       },
       nivelPerfil: {
-        type: Sequelize.TINYINT,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       senha: {
         type: Sequelize.STRING,

@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
 const user = require("../models/user");
+const jwt = require("jsonwebtoken");
+
+const jwtSecret = process.env.JWT_SECRET;
 
 const authSignIn = (req, res, next) => {
   const { email, senha } = req.body;
@@ -52,7 +55,7 @@ const authSignUp = (req, res, next) => {
     });
   }
 
-  if (!nivelPerfil || typeof nivelPerfil !== "string") {
+  if (!nivelPerfil) {
     return res.status(400).json({
       msg: "Tipo de dado inválido ou nao preenchido",
       campo: "nivelPerfil",
@@ -79,6 +82,7 @@ const validateEmailMiddleware = async (req, res, next) => {
   } catch (error) {}
 };
 
+//GERAR O HASH
 const hashPasswordMiddleware = async (req, res, next) => {
   try {
     const { senha } = req.body;
@@ -90,13 +94,14 @@ const hashPasswordMiddleware = async (req, res, next) => {
     const saltRounds = 10;
     req.body.senha = await bcrypt.hash(senha, saltRounds);
 
-    return next(); // Chama o próximo middleware ou a rota final
+    return next();
   } catch (error) {
     console.error("Error hashing password:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 };
 
+//VALIDAÇÃO DE LOGIN
 const validateLoginMiddleware = async (req, res, next) => {
   try {
     const { email, senha } = req.body;
@@ -120,12 +125,47 @@ const validateLoginMiddleware = async (req, res, next) => {
       return res.status(401).json({ msg: "Email ou senha incorretos." });
     }
 
+    //GERAR JWT
+    const token = jwt.sign(
+      { id: usuario.id, nivelPerfil: usuario.nivelPerfil },
+      jwtSecret,
+      { expiresIn: "1h" }
+    );
+
     req.user = usuario;
+    req.token = token;
+
     return next();
   } catch (error) {
-    return res.statu(500).json({
+    return res.status(500).json({
       msg: "Ocorreu um erro ao tentar fazer o login",
     });
+  }
+};
+
+const isAdmin = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({
+        msg: "Token não fornecido",
+      });
+    }
+
+    const decoded = jwt.verify(token, jwtSecret);
+    console.log(decoded);
+    if (decoded.nivelPerfil != "admin") {
+      return res.status(403).json({
+        msg: "Acesso Negado",
+      });
+    }
+
+    req.user = decoded;
+
+    return next();
+  } catch (error) {
+    return res.status(401).json({ msg: "Token inválido ou expirado." });
   }
 };
 
@@ -135,4 +175,5 @@ module.exports = {
   hashPasswordMiddleware,
   validateLoginMiddleware,
   validateEmailMiddleware,
+  isAdmin,
 };

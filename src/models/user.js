@@ -26,7 +26,8 @@ const User = sequelize.define(
       allowNull: false,
     },
     nivelPerfil: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     dataregis: {
       type: DataTypes.DATE,

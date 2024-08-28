@@ -10,10 +10,12 @@ const authController = require("../controller/authController");
 
 const authRoutes = Router();
 
+//LOGIN
 authRoutes.post("/signin", authSignIn, validateLoginMiddleware, (req, res) => {
   authController.signIn(req, res);
 });
 
+//INSCREVA-SE
 authRoutes.post(
   "/signup",
   authSignUp,
