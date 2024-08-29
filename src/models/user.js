@@ -2,9 +2,9 @@ const sequelize = require("../database/database");
 const { DataTypes } = require("sequelize");
 
 const User = sequelize.define(
-  "User",
+  "user",
   {
-    userid: {
+    userId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -35,7 +35,7 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "Users",
+    tableName: "users",
     timestamps: false,
   }
 );

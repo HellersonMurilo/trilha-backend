@@ -9,11 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      trilha_id: {
+      trailId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Learning_Paths",
-          key: "trilha_id",
+          key: "trailId",
         },
       },
       nome_m: {

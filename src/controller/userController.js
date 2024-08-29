@@ -32,7 +32,7 @@ const userController = {
   },
   createTrail: async (req, res) => {
     try {
-      return res.json({ msg: "ta criada" });
+      return res.json({ msg: "Trilha Criada com sucesso!" });
     } catch (error) {
       return res.status(500).json({
         msg: "Ocorreu um erro ao criar a trilha",

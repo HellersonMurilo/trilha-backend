@@ -20,7 +20,7 @@ userRoutes.get("/listusers", (req, res) => {
 });
 
 //ADMIN
-userRoutes.post("/admin/createTrail", isAdmin, (req, res) => {
+userRoutes.post("/admin/createTrail", (req, res) => {
   userController.createTrail(req, res);
 });
 

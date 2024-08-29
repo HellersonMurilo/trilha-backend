@@ -3,21 +3,29 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Learning_Paths", {
-      trilha_id: {
+    await queryInterface.createTable("learning_paths", {
+      trailId: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      nome_t: {
+      userId: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      descri: {
+      nameTrail: {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      datacriacao: {
+      descri:{
+        type: Sequelize.INTEGER(255),
+        allowNull: false,
+      },
+      quantModules: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      dateCreation: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
@@ -25,6 +33,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Learning_Paths");
+    await queryInterface.dropTable("learning_paths");
   },
 };

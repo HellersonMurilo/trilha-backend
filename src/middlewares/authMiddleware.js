@@ -154,7 +154,7 @@ const isAdmin = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, jwtSecret);
-    console.log(decoded);
+
     if (decoded.nivelPerfil != "admin") {
       return res.status(403).json({
         msg: "Acesso Negado",

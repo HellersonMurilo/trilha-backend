@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
-      trilha_id: {
+      trailId: {
         type: DataTypes.INTEGER,
         references: {
           model: "Learning_Paths",
-          key: "trilha_id",
+          key: "trailId",
         },
       },
       nome_m: {
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Module.associate = function (models) {
     Module.belongsTo(models.LearningPath, {
-      foreignKey: "trilha_id",
+      foreignKey: "trailId",
     });
     Module.hasMany(models.Lesson, {
       foreignKey: "module_id",
