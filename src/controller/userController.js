@@ -1,3 +1,4 @@
+const LearningPath = require("../models/learningPath");
 const { User } = require("../models/user");
 
 const userController = {
@@ -32,7 +33,13 @@ const userController = {
   },
   createTrail: async (req, res) => {
     try {
-      return res.json({ msg: "Trilha Criada com sucesso!" });
+
+      const newTrail = LearningPath.create(req.body)
+
+      return res.status(201).json({
+        msg: 'Usuario criado com sucesso!',
+        trilha: newTrail
+      })
     } catch (error) {
       return res.status(500).json({
         msg: "Ocorreu um erro ao criar a trilha",

@@ -18,7 +18,7 @@ const LearningPath = sequelize.define(
       allowNull: false,
     },
     descri: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(500),
       allowNull: false,
     },
     quantModules: {
@@ -37,7 +37,7 @@ const LearningPath = sequelize.define(
 );
 
 LearningPath.associate = function (models) {
-  LearningPath.hasMany(models.userLearningPath, {
+  LearningPath.belongsToMany(models.userLearningPath, {
     foreignKey: "trailId",
   });
 };
