@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      userId: {
+      userAdmin: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },

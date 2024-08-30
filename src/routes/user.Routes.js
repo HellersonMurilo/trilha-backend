@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const userController = require("../controller/userController");
-const { validateUser } = require("../middlewares/userMiddleware");
+
 const { isAdmin } = require("../middlewares/authMiddleware");
 
 const userRoutes = Router();
@@ -11,7 +11,7 @@ const userRoutes = Router();
 // /api/user/32343242 PUT -> Atualizar um
 // /api/user/42874239 DELETE -> Deletar um
 
-userRoutes.post("/", validateUser, (req, res) => {
+userRoutes.post("/", (req, res) => {
   userController.create(req, res);
 });
 

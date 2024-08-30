@@ -1,4 +1,4 @@
-const validateUser = (req, res, next) => {
+const validateUser1 = (req, res, next) => {
   const { nome_u, sobrenome, email, senha, nivelPerfil } = req.body;
 
   //NOME
@@ -33,7 +33,7 @@ const validateUser = (req, res, next) => {
   return next();
 };
 
-const validateUserId = (req, res, next) => {
+const validateUserIda = (req, res, next) => {
   const { id } = req.params;
 
   if (!id || typeof id !== "string") {
@@ -45,8 +45,17 @@ const validateUserId = (req, res, next) => {
   return next();
 };
 
+const validateUser = (req, res, next) => {
+  const {isValid, error} = req.body;
+  if (!isValid) {
+    return res.status(400).json({
+      error: error
+    })
+  }
+
+  return next()
+};
 
 module.exports = {
   validateUser,
-  validateUserId,
 };

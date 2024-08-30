@@ -28,9 +28,9 @@ const authController = {
         nivelPerfil,
       });
 
-      return res.status(202).json({
+      return res.status(201).json({
         msg: "Usuario  criado com sucesso!",
-        usuario: novoUsuario,
+        usuario: {nome, sobrenome, nivelPerfil},
       });
     } catch (error) {
       return res.status(500).json({

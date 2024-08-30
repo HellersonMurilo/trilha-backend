@@ -33,13 +33,14 @@ const userController = {
   },
   createTrail: async (req, res) => {
     try {
+      const { userAdmin, nameTrail, descri, quantModules } = req.body;
 
-      const newTrail = LearningPath.create(req.body)
+      const newTrail = LearningPath.create(req.body);
 
       return res.status(201).json({
-        msg: 'Usuario criado com sucesso!',
-        trilha: newTrail
-      })
+        msg: "Usuario criado com sucesso!",
+        trilha: newTrail,
+      });
     } catch (error) {
       return res.status(500).json({
         msg: "Ocorreu um erro ao criar a trilha",

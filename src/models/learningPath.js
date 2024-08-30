@@ -9,7 +9,7 @@ const LearningPath = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    userAdmin: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
