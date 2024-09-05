@@ -1,4 +1,7 @@
-const validateUser1 = (req, res, next) => {
+const User = require("../models/user");
+const { sendEmail } = require("../service/emailService");
+
+const validateUser = (req, res, next) => {
   const { nome_u, sobrenome, email, senha, nivelPerfil } = req.body;
 
   //NOME
@@ -33,7 +36,7 @@ const validateUser1 = (req, res, next) => {
   return next();
 };
 
-const validateUserIda = (req, res, next) => {
+const validateUserId = (req, res, next) => {
   const { id } = req.params;
 
   if (!id || typeof id !== "string") {
@@ -45,17 +48,41 @@ const validateUserIda = (req, res, next) => {
   return next();
 };
 
-const validateUser = (req, res, next) => {
-  const {isValid, error} = req.body;
-  if (!isValid) {
-    return res.status(400).json({
-      error: error
-    })
-  }
+// LEMBRAR SENHA
+const validateEmailRememberPassword = async (req, res, next) => {
+  const { email } = req.body;
 
-  return next()
+  try {
+    const userEmail = await User.findOne({ where: { email: email } });
+
+    if (!userEmail) {
+      return res.status(401).json({
+        msg: "Email não cadastrado",
+      });
+    }
+
+    // Gerar Token
+    const codeRemember = Math.floor(100000 + Math.random() * 900000);
+
+    req.body.email = email;
+    req.code = codeRemember;
+
+    // Enviar e-mail com o código
+    const subject = "Código de Recuperação de Senha";
+    const text = `Seu código de recuperação é ${codeRemember}.`;
+    await sendEmail(email, subject, text);
+
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Erro",
+      error: error,
+    });
+  }
 };
 
 module.exports = {
   validateUser,
+  validateEmailRememberPassword,
 };

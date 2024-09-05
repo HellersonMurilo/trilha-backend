@@ -116,7 +116,7 @@ const validateLoginMiddleware = async (req, res, next) => {
     const usuario = await user.findOne({ where: { email } });
 
     if (!usuario) {
-      return res.status(401).json({ msg: "Email ou senha incorretos." });
+      return res.status(401).json({ msg: "Usuario não existe." });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
@@ -160,6 +160,8 @@ const isAdmin = async (req, res, next) => {
         msg: "Acesso Negado",
       });
     }
+
+    console.log(decoded)
 
     req.user = decoded;
 

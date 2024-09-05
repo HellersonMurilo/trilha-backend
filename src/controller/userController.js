@@ -47,6 +47,15 @@ const userController = {
       });
     }
   },
+  rememberPassword: async (req, res) => {
+    try {
+      const { email, code } = req.body;
+
+      res.send("opaa")
+    } catch (error) {
+      
+    }
+  },
 };
 
 module.exports = userController;

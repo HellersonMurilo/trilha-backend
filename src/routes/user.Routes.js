@@ -2,6 +2,7 @@ const { Router } = require("express");
 const userController = require("../controller/userController");
 
 const { isAdmin } = require("../middlewares/authMiddleware");
+const { validateEmailRememberPassword } = require("../middlewares/userMiddleware");
 
 const userRoutes = Router();
 
@@ -11,6 +12,7 @@ const userRoutes = Router();
 // /api/user/32343242 PUT -> Atualizar um
 // /api/user/42874239 DELETE -> Deletar um
 
+//USER
 userRoutes.post("/", (req, res) => {
   userController.create(req, res);
 });
@@ -19,9 +21,13 @@ userRoutes.get("/listusers", (req, res) => {
   userController.listenUser(req, res);
 });
 
+userRoutes.post("/rememberPassword", validateEmailRememberPassword, (req, res) => {
+
+});
+
 //ADMIN
-userRoutes.post("/admin/createTrail", (req, res) => {
-  userController.createTrail(req, res);
+userRoutes.post("/admin/createTrail", isAdmin, (req, res) => {
+  res.send("opa");
 });
 
 module.exports = userRoutes;
