@@ -72,7 +72,7 @@ const validateEmailRememberPassword = async (req, res, next) => {
     const text = `Seu código de recuperação é ${codeRemember}.`;
     await sendEmail(email, subject, text);
 
-    next();
+    return next();
   } catch (error) {
     console.log(error);
     res.status(500).json({

@@ -53,7 +53,9 @@ const userController = {
 
       res.send("opaa")
     } catch (error) {
-      
+      res.status(500).json({
+        msg: 'Erro critico ao tentar lembrar a senha'
+      })
     }
   },
 };

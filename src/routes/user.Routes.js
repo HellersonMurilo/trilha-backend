@@ -21,8 +21,9 @@ userRoutes.get("/listusers", (req, res) => {
   userController.listenUser(req, res);
 });
 
+//atualizar senha
 userRoutes.post("/rememberPassword", validateEmailRememberPassword, (req, res) => {
-
+ userController.rememberPassword(req, res)
 });
 
 //ADMIN
