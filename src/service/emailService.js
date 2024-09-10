@@ -1,5 +1,7 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
+const fs = require('fs');
+const path = require('path');
 
 // Configuração do transporte usando Gmail com SSL
 const transporter = nodemailer.createTransport({
@@ -16,13 +18,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Função para enviar o e-mail
-exports.sendEmail = async (to, subject, text) => {
+// Função para ler o template HTML
+const getTemplate = (templateName) => {
+  const templatePath = path.join(__dirname, '../../emails/template', templateName);
+  return fs.readFileSync(templatePath, 'utf-8');
+};
+
+// Função para enviar o e-mail com HTML
+exports.sendEmail = async (to, subject, htmlTemplate, replacements) => { 
+  // Substituir as variáveis no template HTML
+  let htmlContent = getTemplate(htmlTemplate);
+  for (let key in replacements) {
+    htmlContent = htmlContent.replace(new RegExp(`{{${key}}}`, 'g'), replacements[key]);
+  }
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: to,
     subject: subject,
-    text: text,
+    html: htmlContent,
   };
 
   try {

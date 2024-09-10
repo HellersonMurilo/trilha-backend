@@ -33,6 +33,14 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    recoveryCode: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    recoveryCodeExpiration: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "users",

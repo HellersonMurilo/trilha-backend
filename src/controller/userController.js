@@ -1,5 +1,6 @@
+const bcrypt = require("bcrypt");
 const LearningPath = require("../models/learningPath");
-const { User } = require("../models/user");
+const User = require("../models/user");
 
 const userController = {
   create: async (req, res) => {
@@ -31,31 +32,31 @@ const userController = {
       });
     }
   },
-  createTrail: async (req, res) => {
+
+  // Alterar senha após validar código de recuperação
+  updatePassword: async (req, res) => {
     try {
-      const { userAdmin, nameTrail, descri, quantModules } = req.body;
+      const { newPassword } = req.body;
+      const userInfo = req.body;
 
-      const newTrail = LearningPath.create(req.body);
+      // Criptografar a nova senha
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-      return res.status(201).json({
-        msg: "Usuario criado com sucesso!",
-        trilha: newTrail,
-      });
+      // Atualizar a senha no banco de dados
+      await User.update(
+        {
+          senha: hashedPassword,
+          recoveryCode: null,
+          recoveryCodeExpiration: null,
+        }, // Limpar o código de recuperação
+        { where: { email: userInfo.email } }
+      );
+
+      return res.status(200).json({ message: "Senha alterada com sucesso." });
     } catch (error) {
-      return res.status(500).json({
-        msg: "Ocorreu um erro ao criar a trilha",
-      });
-    }
-  },
-  rememberPassword: async (req, res) => {
-    try {
-      const { email, code } = req.body;
-
-      res.send("opaa")
-    } catch (error) {
-      res.status(500).json({
-        msg: 'Erro critico ao tentar lembrar a senha'
-      })
+      return res
+        .status(500)
+        .json({ error: "Erro ao atualizar a senha.", erro: error });
     }
   },
 };

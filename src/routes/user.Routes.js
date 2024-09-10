@@ -2,15 +2,13 @@ const { Router } = require("express");
 const userController = require("../controller/userController");
 
 const { isAdmin } = require("../middlewares/authMiddleware");
-const { validateEmailRememberPassword } = require("../middlewares/userMiddleware");
+const {
+  generateCode,
+  validateToken,
+  validateResetCode,
+} = require("../middlewares/userMiddleware");
 
 const userRoutes = Router();
-
-// /api/user / GET -> Todos
-// /api/user/32132121 GET -> Um
-// /api/user/ POST -> Criar um
-// /api/user/32343242 PUT -> Atualizar um
-// /api/user/42874239 DELETE -> Deletar um
 
 //USER
 userRoutes.post("/", (req, res) => {
@@ -21,9 +19,17 @@ userRoutes.get("/listusers", (req, res) => {
   userController.listenUser(req, res);
 });
 
-//atualizar senha
-userRoutes.post("/rememberPassword", validateEmailRememberPassword, (req, res) => {
- userController.rememberPassword(req, res)
+//TROCAR SENHAS
+// Rota para gerar o código de recuperação de senha
+userRoutes.post("/generateCode", generateCode, (req, res) => {
+  return res.status(200).json({
+    message: "Código de recuperação enviado com sucesso.",
+  });
+});
+
+// Rota para alterar a senha usando o código de recuperação
+userRoutes.post("/updatePassword", validateResetCode, (req, res) => {
+  userController.updatePassword(req, res);
 });
 
 //ADMIN

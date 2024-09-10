@@ -33,6 +33,14 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
+      recoveryCode: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      recoveryCodeExpiration: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      }
     });
   },
 
