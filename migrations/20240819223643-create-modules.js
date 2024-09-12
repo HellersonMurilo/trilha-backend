@@ -1,9 +1,8 @@
-// migrations/XXXXXXXXXXXXXX-create-modules.js
 "use strict";
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Modules", {
+    await queryInterface.createTable("modules", {
       module_id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -12,9 +11,11 @@ module.exports = {
       trailId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Learning_Paths",
-          key: "trailId",
+          model: "learning_paths", // Nome da tabela referenciada em minúsculas
+          key: "trailId", // Chave primária da tabela referenciada
         },
+        onUpdate: "CASCADE", // Ação em caso de atualização
+        onDelete: "CASCADE", // Ação em caso de exclusão
       },
       nome_m: {
         type: Sequelize.STRING(255),
@@ -35,6 +36,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Modules");
+    await queryInterface.dropTable("modules");
   },
 };

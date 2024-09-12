@@ -1,4 +1,3 @@
-// migrations/XXXXXXXXXXXXXX-create-learning-paths.js
 "use strict";
 
 module.exports = {
@@ -17,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      descri:{
+      descri: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
