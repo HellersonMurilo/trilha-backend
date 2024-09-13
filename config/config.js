@@ -9,4 +9,10 @@ module.exports = {
     username: process.env.DB_USER || "seu_usuario",
     password: process.env.DB_PASSWORD || "sua_senha",
   },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 };
