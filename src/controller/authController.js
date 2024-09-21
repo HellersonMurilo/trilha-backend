@@ -3,7 +3,7 @@ const user = require("../models/user");
 const authController = {
   signIn: async (req, res) => {
     try {
-      const { email, senha } = req.body;
+      const { email, password } = req.body;
 
       return res.status(200).json({
         msg: "Usuario Autenticado com sucesso!",
@@ -18,19 +18,18 @@ const authController = {
 
   signUp: async (req, res) => {
     try {
-      const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
+      const { name, lastName, email, password } = req.body;
 
-      const novoUsuario = await user.create({
-        nome,
-        sobrenome,
+      const newUser = await user.create({
+        name,
+        lastName,
         email,
-        senha,
-        nivelPerfil,
+        password
       });
 
       return res.status(201).json({
         msg: "Usuario  criado com sucesso!",
-        usuario: {nome, sobrenome, nivelPerfil},
+        usuario: {name, lastName},
       });
     } catch (error) {
       return res.status(500).json({

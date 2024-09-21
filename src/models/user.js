@@ -9,11 +9,11 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    nome: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    sobrenome: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -21,11 +21,11 @@ const User = sequelize.define(
       type: DataTypes.STRING(500),
       allowNull: false,
     },
-    senha: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    dataregis: {
+    dateregis: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

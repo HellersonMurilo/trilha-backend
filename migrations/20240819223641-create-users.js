@@ -9,11 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      nome: {
+      name: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      sobrenome: {
+      lastName: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
@@ -21,11 +21,11 @@ module.exports = {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      senha: {
+      password: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      dataregis: {
+      dateregis: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },

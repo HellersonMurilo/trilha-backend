@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
 
 const authSignIn = (req, res, next) => {
-  const { email, senha } = req.body;
+  const { email, password } = req.body;
 
   if (!email || typeof email !== "string") {
     return res.status(400).json({
@@ -14,7 +14,7 @@ const authSignIn = (req, res, next) => {
     });
   }
 
-  if (!senha || typeof senha !== "string") {
+  if (!password || typeof password !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido",
       campo: "password",
@@ -25,16 +25,16 @@ const authSignIn = (req, res, next) => {
 };
 
 const authSignUp = (req, res, next) => {
-  const { nome, sobrenome, email, senha } = req.body;
+  const { name, lastName, email, password } = req.body;
 
-  if (!nome || typeof nome !== "string") {
+  if (!name || typeof name !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido ou nao preenchido",
       campo: "nome",
     });
   }
 
-  if (!sobrenome || typeof sobrenome !== "string") {
+  if (!lastName || typeof lastName !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido ou nao preenchido",
       campo: "sobrenome",
@@ -48,7 +48,7 @@ const authSignUp = (req, res, next) => {
     });
   }
 
-  if (!senha || typeof senha !== "string") {
+  if (!password || typeof password !== "string") {
     return res.status(400).json({
       msg: "Tipo de dado inválido ou nao preenchido",
       campo: "senha",
@@ -79,14 +79,14 @@ const validateEmailMiddleware = async (req, res, next) => {
 //GERAR O HASH
 const hashPasswordMiddleware = async (req, res, next) => {
   try {
-    const { senha } = req.body;
+    const { password } = req.body;
 
-    if (!senha) {
+    if (!password) {
       return res.status(400).json({ message: "senha é obrigatoria." });
     }
 
     const saltRounds = 10;
-    req.body.senha = await bcrypt.hash(senha, saltRounds);
+    req.body.password = await bcrypt.hash(password, saltRounds);
 
     return next();
   } catch (error) {
@@ -98,22 +98,22 @@ const hashPasswordMiddleware = async (req, res, next) => {
 //VALIDAÇÃO DE LOGIN
 const validateLoginMiddleware = async (req, res, next) => {
   try {
-    const { email, senha } = req.body;
+    const { email, password } = req.body;
 
-    if (!email || !senha) {
+    if (!email || !password) {
       return res.status(400).json({
         msg: "Email e senha sao obrigatorios!",
       });
     }
 
     // Verifica se o usuário existe no banco de dados pelo email
-    const usuario = await user.findOne({ where: { email } });
+    const returnUser = await user.findOne({ where: { email } });
 
-    if (!usuario) {
-      return res.status(401).json({ msg: "Usuario não existe." });
+    if (!returnUser) {
+      return res.status(401).json({ msg: "usuario não existe." });
     }
 
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+    const senhaValida = await bcrypt.compare(password, returnUser.password);
 
     if (!senhaValida) {
       return res.status(401).json({ msg: "Email ou senha incorretos." });
@@ -121,12 +121,12 @@ const validateLoginMiddleware = async (req, res, next) => {
 
     //GERAR JWT
     const token = jwt.sign(
-      { id: usuario.id, nivelPerfil: usuario.nivelPerfil },
+      { id: returnUser.id},
       jwtSecret,
       { expiresIn: "1h" }
     );
 
-    req.user = usuario;
+    req.user = returnUser;
     req.token = token;
 
     return next();

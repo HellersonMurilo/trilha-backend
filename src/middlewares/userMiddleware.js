@@ -31,7 +31,7 @@ const generateCode = async (req, res, next) => {
     const subject = "Código de Recuperação de Senha";
     const replacements = {
       code: codeRemember,
-      email: userEmail.nome,
+      email: userEmail.name,
     };
     await sendEmail(email, subject, "rememberPassword.html", replacements);
 
