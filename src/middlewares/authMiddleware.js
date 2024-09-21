@@ -25,7 +25,7 @@ const authSignIn = (req, res, next) => {
 };
 
 const authSignUp = (req, res, next) => {
-  const { nome, sobrenome, email, senha, nivelPerfil } = req.body;
+  const { nome, sobrenome, email, senha } = req.body;
 
   if (!nome || typeof nome !== "string") {
     return res.status(400).json({
@@ -55,12 +55,6 @@ const authSignUp = (req, res, next) => {
     });
   }
 
-  if (!nivelPerfil) {
-    return res.status(400).json({
-      msg: "Tipo de dado inválido ou nao preenchido",
-      campo: "nivelPerfil",
-    });
-  }
 
   return next();
 };

@@ -7,5 +7,4 @@ learningPath.post("/createTrail", isAdmin, (req, res) => {
     res.send('ta criada!')
 });
 
-
 module.exports = learningPath

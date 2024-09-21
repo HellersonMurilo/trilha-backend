@@ -25,10 +25,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    nivelPerfil: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     dataregis: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

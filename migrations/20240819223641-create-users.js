@@ -21,10 +21,6 @@ module.exports = {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      nivelPerfil: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       senha: {
         type: Sequelize.STRING,
         allowNull: false,
