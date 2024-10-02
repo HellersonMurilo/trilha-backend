@@ -11,10 +11,6 @@ const {
 const userRoutes = Router();
 
 //USER
-userRoutes.post("/", (req, res) => {
-  userController.create(req, res);
-});
-
 userRoutes.get("/listusers", (req, res) => {
   userController.listenUser(req, res);
 });
@@ -30,11 +26,6 @@ userRoutes.post("/generateCode", generateCode, (req, res) => {
 // Rota para alterar a senha usando o código de recuperação
 userRoutes.post("/updatePassword", validateResetCode, (req, res) => {
   userController.updatePassword(req, res);
-});
-
-//ADMIN
-userRoutes.post("/admin/createTrail", isAdmin, (req, res) => {
-  res.send("opa");
 });
 
 module.exports = userRoutes;

@@ -16,10 +16,6 @@ module.exports = {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      descri: {
-        type: Sequelize.STRING(255),
-        allowNull: false,
-      },
       quantModules: {
         type: Sequelize.INTEGER,
         allowNull: false,

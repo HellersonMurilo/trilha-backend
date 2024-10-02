@@ -28,7 +28,7 @@ const authController = {
       });
 
       return res.status(201).json({
-        msg: "Usuario  criado com sucesso!",
+        msg: "Usuario criado com sucesso!",
         usuario: {name, lastName},
       });
     } catch (error) {

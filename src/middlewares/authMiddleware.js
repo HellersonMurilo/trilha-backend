@@ -73,7 +73,9 @@ const validateEmailMiddleware = async (req, res, next) => {
     }
 
     return next();
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
+  }
 };
 
 //GERAR O HASH
@@ -121,7 +123,7 @@ const validateLoginMiddleware = async (req, res, next) => {
 
     //GERAR JWT
     const token = jwt.sign(
-      { id: returnUser.id},
+      { id: returnUser.userId, email: returnUser.email },
       jwtSecret,
       { expiresIn: "1h" }
     );
@@ -137,7 +139,7 @@ const validateLoginMiddleware = async (req, res, next) => {
   }
 };
 
-const isAdmin = async (req, res, next) => {
+const decriptedJwt = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
 
@@ -148,12 +150,6 @@ const isAdmin = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, jwtSecret);
-
-    if (decoded.nivelPerfil != "admin") {
-      return res.status(403).json({
-        msg: "Acesso Negado",
-      });
-    }
 
     console.log(decoded)
 
@@ -171,5 +167,5 @@ module.exports = {
   hashPasswordMiddleware,
   validateLoginMiddleware,
   validateEmailMiddleware,
-  isAdmin,
+  decriptedJwt,
 };

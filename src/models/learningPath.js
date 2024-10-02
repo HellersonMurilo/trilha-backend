@@ -17,13 +17,9 @@ const LearningPath = sequelize.define(
       type: DataTypes.STRING(500),
       allowNull: false,
     },
-    descri: {
-      type: DataTypes.STRING(500),
-      allowNull: false,
-    },
     quantModules: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false, 
     },
     dateCreation: {
       type: DataTypes.DATE,
