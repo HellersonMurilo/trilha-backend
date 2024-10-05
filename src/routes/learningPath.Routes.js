@@ -9,4 +9,8 @@ learningPath.post("/createTrail", decriptedJwt, (req, res) => {
     learningPathController.createTrail(req, res)
 });
 
+learningPath.get("/trails", decriptedJwt, (req, res) => {
+    learningPathController.getTrails(req, res)
+})
+
 module.exports = learningPath

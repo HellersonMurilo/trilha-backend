@@ -26,6 +26,31 @@ const learningPathController = {
                 erro: error.message
             });
         }
+    },
+
+    getTrails: async (req, res) => {
+        try {
+            const user = req.user.email
+            const trails = await LearningPath.findAll({
+                where:{
+                    userAdmin: user
+                }
+            })
+            if (!trails) {
+                return res.status(200).json({
+                    msg: 'Nenhum Trilha encontrada'
+                })
+            }
+            
+            return res.status(200).json({
+                data: trails
+            })
+        } catch (error) {
+            return res.status(500).json({
+                msg: 'Ocorreu um erro critico ao puxar as trilhas',
+                erro: error
+            })
+        }
     }
 };
 
