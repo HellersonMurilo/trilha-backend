@@ -55,7 +55,6 @@ const authSignUp = (req, res, next) => {
     });
   }
 
-
   return next();
 };
 
@@ -150,8 +149,6 @@ const decriptedJwt = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, jwtSecret);
-
-    console.log(decoded)
 
     req.user = decoded;
 

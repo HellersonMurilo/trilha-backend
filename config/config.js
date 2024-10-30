@@ -1,6 +1,6 @@
 require("dotenv").config(); // Carrega as variáveis de ambiente
 
-/* module.exports = {
+/*   module.exports = {
   development: {
     dialect: process.env.DB_DIALECT || "postgres", // Corrigido de "postgress" para "postgres"
     host: process.env.DB_HOST || "localhost",
@@ -9,8 +9,8 @@ require("dotenv").config(); // Carrega as variáveis de ambiente
     username: process.env.DB_USER || "seu_usuario",
     password: process.env.DB_PASSWORD || "sua_senha",
   },
-}; 
- */
+};  */
+
 
 // CONEXAO SSL
 module.exports = {
