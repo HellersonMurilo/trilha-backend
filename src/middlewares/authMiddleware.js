@@ -122,7 +122,7 @@ const validateLoginMiddleware = async (req, res, next) => {
 
     //GERAR JWT
     const token = jwt.sign(
-      { id: returnUser.userId, email: returnUser.email },
+      { id: returnUser.userId, email: returnUser.email, name: returnUser.name },
       jwtSecret,
       { expiresIn: "1h" }
     );

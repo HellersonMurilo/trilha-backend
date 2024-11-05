@@ -17,18 +17,18 @@ module.exports = {
         onUpdate: "CASCADE", // Ação em caso de atualização
         onDelete: "CASCADE", // Ação em caso de exclusão
       },
-      nome_m: {
+      name_m: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      descricao_m: {
+      description_m: {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
-      ordera: {
+      quantLessons: {
         type: Sequelize.INTEGER,
       },
-      datacriacao: {
+      dateCreated: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },

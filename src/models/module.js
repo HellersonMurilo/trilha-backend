@@ -15,19 +15,19 @@ module.exports = (sequelize, DataTypes) => {
           key: "trailId",
         },
       },
-      nome_m: {
+      name_m: {
         type: DataTypes.STRING(255),
         allowNull: false,
         allowNull: false,
       },
-      descricao_m: {
+      description_m: {
         type: DataTypes.STRING(500),
         allowNull: false,
       },
-      ordera: {
+      quantLessons: {
         type: DataTypes.INTEGER,
       },
-      datacriacao: {
+      dateCreated: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       }
