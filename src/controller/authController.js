@@ -7,7 +7,8 @@ const authController = {
 
       return res.status(200).json({
         msg: "Usuario Autenticado com sucesso!",
-        token: req.token
+        token: req.token,
+        nameUser: req.user.name
       });
     } catch (error) {
       res.status(500).json({
