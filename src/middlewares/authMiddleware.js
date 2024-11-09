@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const user = require("../models/user");
 const jwt = require("jsonwebtoken");
+const { jwtBlacklist } = require("../controller/authController");
 
 const jwtSecret = process.env.JWT_SECRET;
 
@@ -138,9 +139,11 @@ const validateLoginMiddleware = async (req, res, next) => {
   }
 };
 
+//descriptografia do JWT
 const decriptedJwt = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+
+    const token = req.headers.authorization?.split(" ")[1];    
 
     if (!token) {
       return res.status(401).json({
@@ -148,11 +151,24 @@ const decriptedJwt = async (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, jwtSecret);
+    if (jwtBlacklist.has(token)) {
+      return res.status(401).json({ msg: "Token inválido ou expirado." });
+    }
 
-    req.user = decoded;
+    try {
+      // Verifica se o token é válido e decodifica
+      const decoded = jwt.verify(token, jwtSecret);
 
-    return next();
+      // Adiciona o usuário decodificado no objeto 'req'
+      req.user = decoded;
+
+      return next();
+    } catch (err) {
+      // Em caso de erro, retorna uma resposta adequada
+      return res.status(401).json({ msg: "Token inválido.", erro: err.message });
+    }
+
+
   } catch (error) {
     return res.status(401).json({ msg: "Token inválido ou expirado." });
   }
@@ -164,5 +180,5 @@ module.exports = {
   hashPasswordMiddleware,
   validateLoginMiddleware,
   validateEmailMiddleware,
-  decriptedJwt,
+  decriptedJwt
 };

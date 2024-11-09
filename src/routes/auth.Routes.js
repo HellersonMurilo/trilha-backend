@@ -5,7 +5,9 @@ const {
   hashPasswordMiddleware,
   validateLoginMiddleware,
   validateEmailMiddleware,
+  decriptedJwt,
 } = require("../middlewares/authMiddleware");
+
 const authController = require("../controller/authController");
 
 const authRoutes = Router();
@@ -25,4 +27,10 @@ authRoutes.post(
     authController.signUp(req, res);
   }
 );
+
+//LOGOUT
+authRoutes.post('/logout', decriptedJwt, (req, res) =>{
+  authController.authController.logout(req, res)
+})
+
 module.exports = authRoutes;

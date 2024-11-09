@@ -13,8 +13,6 @@ const learningPathController = {
                 where: { email: emailUser }
             });
 
-            console.log(user)
-
             if (!user) {
                 return res.status(404).json({ msg: 'Usuário não encontrado' });
             }
@@ -76,8 +74,6 @@ const learningPathController = {
             const trailId = req.params.id;
 
             const email = req.user.email;
-
-            console.log(trailId)
 
             // Verificar se req.user e req.user.email estão presentes
             if (!req.user || !req.user.email) {

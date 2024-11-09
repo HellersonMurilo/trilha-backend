@@ -10,7 +10,8 @@ require("dotenv").config(); // Carrega as variáveis de ambiente
     password: process.env.DB_PASSWORD || "sua_senha",
   },
 };   */
- // CONEXAO SSL
+
+// CONEXAO SSL
 module.exports = {
   development: {
     dialect: process.env.DB_DIALECT || "postgres",
@@ -26,4 +27,4 @@ module.exports = {
       },
     },
   },
-}; 
+};

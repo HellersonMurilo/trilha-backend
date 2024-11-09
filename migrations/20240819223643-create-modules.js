@@ -17,11 +17,11 @@ module.exports = {
         onUpdate: "CASCADE", // Ação em caso de atualização
         onDelete: "CASCADE", // Ação em caso de exclusão
       },
-      name_m: {
+      nameModule: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      description_m: {
+      descriptionModule: {
         type: Sequelize.STRING(500),
         allowNull: false,
       },
