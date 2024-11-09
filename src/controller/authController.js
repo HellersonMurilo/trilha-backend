@@ -3,35 +3,19 @@ const user = require("../models/user");
 const jwtBlacklist = new Set();
 
 const authController = {
+
   signIn: async (req, res) => {
     try {
-      const { email, password } = req.body;
-
-      // A autenticação do usuário deve ocorrer antes de gerar o token.
-      if (!email || !password) {
-        return res.status(400).json({
-          msg: "E-mail e senha são obrigatórios.",
-        });
-      }
-
-      // Verifique se as credenciais são válidas antes de gerar o token
-      // Exemplo de validação fictícia de credenciais
-      const authenticatedUser = await user.findOne({ where: { email, password } });
-      if (!authenticatedUser) {
-        return res.status(401).json({
-          msg: "Credenciais inválidas.",
-        });
-      }
 
       return res.status(200).json({
-        msg: "Usuário autenticado com sucesso!",
+        msg: "Usuario Autenticado com sucesso!",
         token: req.token,
-        nameUser: req.user.name,
+        nameUser: req.user.name
       });
+
     } catch (error) {
-      return res.status(500).json({
-        msg: "Ocorreu um erro ao realizar o login.",
-        err: error.message,
+      res.status(500).json({
+        msg: "Ocorreu um erro ao realizar o login",
       });
     }
   },
@@ -40,28 +24,21 @@ const authController = {
     try {
       const { name, lastName, email, password } = req.body;
 
-      // Validação básica de dados
-      if (!name || !lastName || !email || !password) {
-        return res.status(400).json({
-          msg: "Todos os campos são obrigatórios.",
-        });
-      }
-
       const newUser = await user.create({
         name,
         lastName,
         email,
-        password,
+        password
       });
 
       return res.status(201).json({
-        msg: "Usuário criado com sucesso!",
+        msg: "Usuario criado com sucesso!",
         usuario: { name, lastName },
       });
     } catch (error) {
       return res.status(500).json({
-        msg: "Ocorreu um erro crítico ao criar o usuário.",
-        err: error.message,
+        msg: "Ocorreu um erro critico ao criar o usuario",
+        err: error,
       });
     }
   },
@@ -92,7 +69,4 @@ const authController = {
   },
 };
 
-module.exports = {
-  authController,
-  jwtBlacklist,
-};
+module.exports = { authController, jwtBlacklist };

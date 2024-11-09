@@ -8,7 +8,7 @@ const {
   decriptedJwt,
 } = require("../middlewares/authMiddleware");
 
-const authController = require("../controller/authController");
+const { authController } = require("../controller/authController");
 
 const authRoutes = Router();
 
@@ -29,8 +29,8 @@ authRoutes.post(
 );
 
 //LOGOUT
-authRoutes.post('/logout', decriptedJwt, (req, res) =>{
-  authController.authController.logout(req, res)
+authRoutes.post('/logout', decriptedJwt, (req, res) => {
+    authController.logout(req, res)
 })
 
 module.exports = authRoutes;
