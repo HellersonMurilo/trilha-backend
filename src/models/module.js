@@ -27,6 +27,9 @@ const Module = sequelize.define(
     quantLessons: {
       type: DataTypes.INTEGER,
     },
+    stageCompleted:{
+      type: DataTypes.INTEGER
+    },
     dateCreated: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

@@ -28,6 +28,9 @@ module.exports = {
       quantLessons: {
         type: Sequelize.INTEGER,
       },
+      stageCompleted: {
+        type: Sequelize.INTEGER
+      },
       dateCreated: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
