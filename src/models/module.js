@@ -28,7 +28,8 @@ const Module = sequelize.define(
       type: DataTypes.INTEGER,
     },
     stageCompleted:{
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     dateCreated: {
       type: DataTypes.DATE,

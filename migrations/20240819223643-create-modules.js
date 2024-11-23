@@ -29,7 +29,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       stageCompleted: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       dateCreated: {
         type: Sequelize.DATE,
