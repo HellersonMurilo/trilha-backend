@@ -6,8 +6,8 @@ const moduleController = require("../controller/moduleController");
 
 const modules = Router()
 
-modules.get('/listModules', (req, res) => {
-    res.send("toma aqui suas trilhas")
+modules.get('/listModules', decriptedJwt, (req, res) => {
+    moduleController.getTrails(req, res)
 })
 
 modules.post('/:idTrail/create', validateFields, decriptedJwt, validateIdTrilha, (req, res) => {
