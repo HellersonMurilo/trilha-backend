@@ -1,5 +1,4 @@
 const Module = require('../models/module')
-const UserLearningPath = require('../models/intermediateUserLearning')
 const userLearningPath = require('../models/intermediateUserLearning')
 
 const validateFields = async (req, res, next) => {
@@ -20,12 +19,13 @@ const validateFields = async (req, res, next) => {
         });
     }
 
-    if (!quantLessons || typeof quantLessons !== 'number') {
+    if (!quantLessons || typeof quantLessons !== 'number' || quantLessons <= 0) {
         return res.status(400).json({
-            msg: "Tipo de dado inválido",
+            msg: "Quantidade de aulas inválida",
             campo: "Quant Lessons",
         });
     }
+
 
     if (!idTrail) {
         return res.status(400).json({
@@ -39,6 +39,7 @@ const validateFields = async (req, res, next) => {
 
 //Valida se a trilha informada é a do usuario
 const validateIdTrilha = async (req, res, next) => {
+
     try {
         const trailId = req.params.idTrail
 
@@ -64,6 +65,9 @@ const validateIdTrilha = async (req, res, next) => {
                 msg: 'usuario nao autorizado a essa trilha'
             })
         }
+
+        console.log(trailId);
+
 
         return next()
 

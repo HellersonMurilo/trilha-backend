@@ -28,18 +28,8 @@ const moduleController = {
         }
     },
     getTrails: async (req, res) =>{
-        const user = req.user.id
-        try {
-            //buscando os dados da intermediaria
-            const dataUser = await userLearningPath.findOne({
-                where:{
-                    userId: user
-                }
-            })
-
-            //salvando o trailId
-            let trailId = dataUser.trailId
-            
+        const trailId = req.params.idTrail
+        try {            
             //buscando a trilha na tabela de modulos
             const listModules = await Module.findAll({
                 where: {
@@ -54,7 +44,7 @@ const moduleController = {
         } catch (error) {
             return res.status(500).json({
                 msg: 'Ocorreu um erro critico ao listar as Trilhas',
-                err: error.message
+                err: error
             })
         }
     }
