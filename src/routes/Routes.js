@@ -3,6 +3,7 @@ const userRoutes = require("./user.Routes");
 const authRoutes = require("./auth.Routes");
 const learningPathRoutes = require("./learningPath.Routes");
 const modules = require("./modules.Routes");
+const lesson = require("./lesson.Routes");
 
 const router = Router();
 
@@ -17,5 +18,8 @@ router.use("/learningPath", learningPathRoutes);
 
     //MODULES
 router.use('/modules', modules)
+
+//LESSON
+router.use('/lesson', lesson)
 
 module.exports = router;

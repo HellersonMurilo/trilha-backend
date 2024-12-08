@@ -6,7 +6,7 @@ const moduleController = {
 
         const { nameModule, descriptionModule, quantLessons } = req.body
         const trailId = req.params.idTrail
-        
+
         try {
 
             // Verificar se a trilha existe
@@ -98,6 +98,36 @@ const moduleController = {
                 msg: 'Ocorreu um erro crítico ao deletar o módulo.',
                 err: error.message,
             });
+        }
+    },
+    updateModule: async (req, res) => {
+        const { idTrail, idModule } = req.params;
+
+        try {
+            // Validar se a trilha e o módulo existem
+            const moduleToPut = await Module.findOne({ where: { module_id: idModule } });
+            if (!moduleToPut) {
+                return res.status(404).json({ msg: 'Módulo não encontrado.' });
+            }
+
+            const updateModule = await Module.update(
+                {
+                    nameModule: req.body.nameModule,
+                    descriptionModule: req.body.descriptionModule,
+                    quantLessons: req.body.quantLessons
+                },
+                { where: { module_id: idModule } }
+            )
+
+            return res.status(200).json({
+                msg: 'Modulo atualizado com sucesso',
+                module: updateModule
+            })
+        } catch (error) {
+            return res.status(500).json({
+                msg: 'Ocorreu um erro critico ao atualizar o modulo',
+                err: error.message
+            })
         }
     }
 }

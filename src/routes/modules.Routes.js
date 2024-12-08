@@ -23,4 +23,9 @@ modules.delete('/delete/:idTrail/:idModule', decriptedJwt, validateIdTrilha, (re
     moduleController.deleteModule(req, res)
 })
 
+//ATUALIZAR
+modules.put('/update/:idTrail/:idModule', decriptedJwt, validateIdTrilha, (req, res) => {
+    moduleController.updateModule(req, res)
+})
+
 module.exports = modules

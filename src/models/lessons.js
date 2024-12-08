@@ -1,36 +1,41 @@
-// models/Lesson.js
-module.exports = (sequelize, DataTypes) => {
-    const Lesson = sequelize.define('Lesson', {
-      licao_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+const sequelize = require("../database/database");
+const { DataTypes } = require("sequelize");
+
+const Lesson = sequelize.define(
+  "lessons",
+  {
+    licao_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    module_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "modules",
+        key: "module_id",
       },
-      module_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'Modules',
-          key: 'module_id',
-        },
-      },
-      nome_l: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      ordem: {
-        type: DataTypes.INTEGER,
-      },
-    }, {
-      tableName: 'Lessons',
-      timestamps: false,
-    });
-  
-    Lesson.associate = function(models) {
-      Lesson.belongsTo(models.Module, {
-        foreignKey: 'module_id',
-      });
-    };
-  
-    return Lesson;
-  };
-  
+    },
+    title_lesson: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    text_lesson: {
+      type: DataTypes.STRING(2500),
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "lessons",
+    timestamps: false,
+  }
+);
+
+// Associação com outros modelos
+Lesson.associate = function (models) {
+  Lesson.belongsTo(models.Module, {
+    foreignKey: "module_id",
+  });
+};
+
+module.exports = Lesson;

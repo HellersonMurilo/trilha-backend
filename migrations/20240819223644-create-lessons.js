@@ -17,12 +17,13 @@ module.exports = {
         onUpdate: 'CASCADE', // Ação em caso de atualização
         onDelete: 'CASCADE', // Ação em caso de exclusão
       },
-      nome_l: {
+      title_lesson: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      ordem: {
-        type: Sequelize.INTEGER,
+      text_lesson: {
+        type: Sequelize.STRING(2500),
+        allowNull: false
       },
     });
   },

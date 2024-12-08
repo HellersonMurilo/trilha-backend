@@ -9,8 +9,7 @@ require("dotenv").config(); // Carrega as variáveis de ambiente
     username: process.env.DB_USER || "seu_usuario",
     password: process.env.DB_PASSWORD || "sua_senha",
   },
-};
- */
+}; */
 // CONEXAO SSL
 module.exports = {
   development: {
@@ -27,4 +26,4 @@ module.exports = {
       },
     },
   },
-}; 
+};
