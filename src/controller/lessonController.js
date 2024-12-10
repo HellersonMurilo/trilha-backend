@@ -7,42 +7,42 @@ const Module = require('../models/module');
 const lessonController = {
     // Rota para upload de vídeo
     uploadLessonVideo: async (req, res) => {
-        const file = req.file; // Arquivo enviado pelo multer
-        const { idTrail, idModule, idLesson } = req.params; // Obtém os parâmetros da rota
-        const key = `videos/${idTrail}/${idModule}/${idLesson}/${file.originalname}`;
+        console.log('Início do upload');
+        console.log('Parâmetros da rota:', req.params);
+        console.log('Arquivo recebido:', req.file);
 
+        const file = req.file;
         if (!file) {
+            console.error('Nenhum arquivo foi enviado pelo cliente.');
             return res.status(400).send('Nenhum arquivo enviado.');
         }
 
+        const { idTrail, idModule, idLesson } = req.params;
+        const key = `videos/${idTrail}/${idModule}/${idLesson}/${file.originalname}`;
         const tempPath = file.path;
 
         try {
-            // Verifica se o arquivo existe no caminho temporário
+            console.log('Caminho do arquivo temporário:', tempPath);
+
             if (!fs.existsSync(tempPath)) {
+                console.error('Arquivo temporário não encontrado.');
                 return res.status(400).send('Arquivo temporário não encontrado.');
             }
 
-            // Enviar o vídeo para o Space
             const result = await uploadToSpace(tempPath, 'trailsync', key);
 
-            // Limpar o arquivo temporário após o upload
-            fs.unlinkSync(tempPath);
+            fs.unlinkSync(tempPath); // Limpa o arquivo temporário
+
+            console.log('Upload bem-sucedido:', result.Location);
 
             res.status(200).json({
                 msg: 'Upload concluído com sucesso!',
-                location: result.Location, // URL do vídeo no DigitalOcean Spaces
+                location: result.Location,
             });
         } catch (error) {
-            console.error('Erro ao enviar arquivo para o Space:', error);
-
-            // Limpar o arquivo temporário em caso de erro
+            console.error('Erro durante o upload:', error.message);
             if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
-
-            res.status(500).json({
-                msg: 'Erro ao processar o vídeo.',
-                error: error.message,
-            });
+            res.status(500).json({ msg: 'Erro ao processar o vídeo.', error: error.message });
         }
     },
 
