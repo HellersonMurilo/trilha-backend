@@ -46,7 +46,10 @@ const listVideosInLessonFolder = async (idTrail, idModule, idLesson) => {
 
   try {
     const data = await s3.listObjectsV2(params).promise();
-    const videoUrls = data.Contents.map((file) => getPublicUrl(file.Key)); // Mapeia para URLs públicas
+
+    // Mapeia para URLs públicas e garante que espaços sejam codificados corretamente
+    const videoUrls = data.Contents.filter(file => file.Key.endsWith('.mp4'))
+      .map((file) => getPublicUrl(encodeURIComponent(file.Key))); // Codifica o nome do arquivo
     return videoUrls; // Retorna as URLs dos vídeos
   } catch (error) {
     console.error('Erro ao listar vídeos na pasta:', error);

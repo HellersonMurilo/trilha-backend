@@ -24,4 +24,9 @@ lesson.get('/view/:idTrail/:idModule/:idLesson', decriptedJwt, (req, res) => {
   lessonController.viewLesson(req, res);
 });
 
+//Rota para listar as lições
+lesson.get('/list/:idTrail/:idModule', decriptedJwt, (req, res) => {
+  lessonController.listLesson(req, res);
+});
+
 module.exports = lesson;
