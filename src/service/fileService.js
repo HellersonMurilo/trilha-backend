@@ -1,6 +1,5 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
-const path = require('path');
 
 // Configuração do cliente S3 para o DigitalOcean Spaces
 const s3 = new AWS.S3({
@@ -10,6 +9,7 @@ const s3 = new AWS.S3({
   region: 'nyc3', // Região do seu Space
 });
 
+// Função para upload do arquivo para o Space
 const uploadToSpace = async (filePath, bucketName, key) => {
   try {
     const fileContent = fs.readFileSync(filePath);
@@ -30,4 +30,28 @@ const uploadToSpace = async (filePath, bucketName, key) => {
   }
 };
 
-module.exports = { uploadToSpace };
+// Função para obter a URL pública do arquivo
+const getPublicUrl = (key) => {
+  return `${process.env.SPACE_ENDPOINT}/${key}`; // SPACE_URL é o domínio base do seu Space
+};
+
+// Função para listar todos os vídeos em uma pasta específica
+const listVideosInLessonFolder = async (idTrail, idModule, idLesson) => {
+  const lessonFolder = `videos/${idTrail}/${idModule}/${idLesson}/`; // Caminho da pasta da lição
+
+  const params = {
+    Bucket: 'trailsync', // Nome do seu Space
+    Prefix: lessonFolder, // Caminho da pasta da lição no Space
+  };
+
+  try {
+    const data = await s3.listObjectsV2(params).promise();
+    const videoUrls = data.Contents.map((file) => getPublicUrl(file.Key)); // Mapeia para URLs públicas
+    return videoUrls; // Retorna as URLs dos vídeos
+  } catch (error) {
+    console.error('Erro ao listar vídeos na pasta:', error);
+    throw new Error('Erro ao listar vídeos na pasta');
+  }
+};
+
+module.exports = { uploadToSpace, getPublicUrl, listVideosInLessonFolder };

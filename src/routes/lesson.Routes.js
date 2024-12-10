@@ -15,8 +15,13 @@ lesson.post('/create/:idTrail/:idModule', decriptedJwt, (req, res) => {
 });
 
 // Rota de upload de vídeo para a aula
-lesson.post('/upload/:idTrail/:idModule', decriptedJwt, upload.single('video'), (req, res) => {
+lesson.post('/upload/:idTrail/:idModule/:idLesson', decriptedJwt, upload.single('video'), (req, res) => {
   lessonController.uploadLessonVideo(req, res);
+});
+
+// Rota para ver a lição
+lesson.get('/view/:idTrail/:idModule/:idLesson', decriptedJwt, (req, res) => {
+  lessonController.viewLesson(req, res);
 });
 
 module.exports = lesson;
